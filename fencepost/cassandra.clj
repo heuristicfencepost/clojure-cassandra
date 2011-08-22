@@ -1,3 +1,5 @@
+(ns fencepost.cassandra)
+
 (import '(org.apache.thrift.transport TFramedTransport TSocket)
         '(org.apache.thrift.protocol TBinaryProtocol)
         '(org.apache.cassandra.thrift Cassandra$Client SliceRange SlicePredicate ColumnParent KeyRange ConsistencyLevel)
@@ -52,21 +54,5 @@
                     (map #(String. (.getValue %)) cols))
             )
           )
-    )
-  )
-
-(let [client (connect "localhost" 9160 "twitter")
-      key_slices (get_range_slices client "authors" "!" "~")
-      five_keys (take 5 (range_slices_keys key_slices))]
-
-  (print five_keys)
-
-  (let [formatfn
-        (fn [key]
-          (let [cols (range_slices_columns key_slices key)]
-            (format "Key %s: name => %s, following => %s\n" key (cols :name) (cols :following))
-            )
-          )]
-    (print (reduce str (map formatfn five_keys)))
     )
   )

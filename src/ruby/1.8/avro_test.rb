@@ -25,15 +25,3 @@ dr = Avro::IO::DatumReader.new()
 df2 = Avro::DataFile::Reader.new(reader,dr)
 puts "#{df2.datum_reader.writers_schema}"
 
-
-#writer = StringIO.new
-#encoder = Avro::IO::BinaryEncoder.new(writer)
-
-#datum_writer.write(1,encoder)
-
-
-#reader = StringIO.new(writer.toString())
-#decoder = Avro::IO::BinaryDecoder.new(reader)
-#datum_reader = Avro::IO::DatumReader.new
-#val = datum_reader.read(decoder)
-#puts "Val is #{val}"

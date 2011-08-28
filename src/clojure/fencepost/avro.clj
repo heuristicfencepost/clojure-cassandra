@@ -7,7 +7,7 @@
         )
 
 (defn encode_with_schema [target]
-      "Use Java serialization to generate a schema for the input object and return that schema along with encoded data"
+      "Use Java reflection to generate a schema for the input object and return that schema along with encoded data"
       (let [targetschema (.getSchema (ReflectData/get) (.getClass target))
       	    targetwriter (ReflectDatumWriter. targetschema)
 	    buffer (ByteArrayOutputStream.)
@@ -15,6 +15,7 @@
 
 	    ; Populate the buffer with Avro data for the target
 	    (.write targetwriter target encoder)
+	    (.flush encoder)
 
 	    (let [targetdata (.toByteArray buffer)
 	    	  ; Ideally we'd use a record for this sort of thing but doing so would require setX()
@@ -24,6 +25,7 @@
 	    	  metawriter (ReflectDatumWriter. (Schema/parse metaschema))]
 		  (.reset buffer)
 		  (.write metawriter {"schema" (.getBytes (.toString targetschema)) "data" targetdata} encoder)
+		  (.flush encoder)
 		  (.toByteArray buffer)
 		  )
 	    )

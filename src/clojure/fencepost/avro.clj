@@ -1,5 +1,10 @@
 (ns fencepost.avro)
 
+; Dependencies
+; avro 1.5.2
+; paranamer 2.0 (required by Avro)
+; jackson (required by Avro)
+
 (import '(org.apache.avro Schema)
 	'(org.apache.avro.reflect ReflectData ReflectDatumWriter)
 	'(org.apache.avro.io BufferedBinaryEncoder EncoderFactory)

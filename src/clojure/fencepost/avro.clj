@@ -3,12 +3,12 @@
 ; Dependencies
 ; avro 1.5.2
 ; paranamer 2.0 (required by Avro)
-; jackson (required by Avro)
+; jackson 1.8.5 (required by Avro)
 
 (import '(org.apache.avro Schema)
-	'(org.apache.avro.reflect ReflectData ReflectDatumWriter)
 	'(org.apache.avro.generic GenericDatumReader)
 	'(org.apache.avro.io BufferedBinaryEncoder EncoderFactory DecoderFactory)
+	'(org.apache.avro.reflect ReflectData ReflectDatumWriter)
 	'(java.io ByteArrayOutputStream ByteArrayInputStream)
         )
 
@@ -26,7 +26,8 @@
 	    buffer (ByteArrayOutputStream.)
       	    encoder (.binaryEncoder (EncoderFactory.) buffer nil)]
 
-	    ; Populate the buffer with Avro data for the target
+	    ; Populate the buffer with Avro data for the target.  Note that we can't bundle the
+	    ; whole thing up into a single let expression because of our reliance on side effects.
 	    (.write targetwriter target encoder)
 	    (.flush encoder)
 
@@ -47,16 +48,19 @@
       (let [metareader (GenericDatumReader. (Schema/parse (get_meta_schema)))
       	    buffer (ByteArrayInputStream. indata)
       	    decoder (.binaryDecoder (DecoderFactory.) buffer nil)
+	    middata (.read metareader nil decoder)
 
 	    ; The data type returned from the underlying Avro Java code needs a bit
 	    ; of massaging before we can move forward.  Avro decoders return strings
 	    ; as instances of Utf8 objects so we have to apply "str" to them directly
 	    ; in order to get back something we can work with.
-	    middata (.read metareader nil decoder)
 	    {schema "schema" data "data"} (zipmap (map str (keys middata)) (vals middata))
 	    schemabytes (byte-array (.capacity schema))
 	    databytes (byte-array (.capacity data))]
 
+	    ; Ah, more side effects.  The Java Avro implementation makes heavy use of
+	    ; NIO ByteBuffers, so we're forced to convert them into byte arrays before
+	    ; continuing. 
 	    (.get schema schemabytes)
 	    (.get data databytes)
 

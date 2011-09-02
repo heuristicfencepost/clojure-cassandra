@@ -20,9 +20,13 @@
 
 ; Utility function to combine our Avro lib with our Cassandra lib
 (defn add_user [client username userid active locationids]
-      (insert client username "employee" "userid" (encode_with_schema userid))
-      (insert client username "employee" "active" (encode_with_schema active))
-      (insert client username "employee" "locationids" (encode_with_schema locationids))
+      (let [userid_data (encode_with_schema userid)
+      	    active_data (encode_with_schema active)
+	    locationids_data (encode_with_schema locationids)]
+	        (insert client username "employee" "userid" userid_data)
+		(insert client username "employee" "active" active_data)
+      		(insert client username "employee" "locationids" locationids_data)
+	    )
 )
 
 ; Generate a list of random usernames

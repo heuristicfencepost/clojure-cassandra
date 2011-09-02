@@ -73,7 +73,7 @@
        column
 	(doto (Column.)
 	  (.setName colname_bytes)
-	  (.setValue colname_bytes)
+	  (.setValue colval_bytes)
 	  (.setTimestamp (System/currentTimeMillis))
 	)]
 

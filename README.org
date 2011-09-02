@@ -19,6 +19,7 @@ This code has been validated with Cassandra 0.8.2, Clojure 1.2 and Ruby 1.8.7
 * Running the Samples
 Cassandra can be configured via the cassandra CLI:
 
+#+BEGIN_CLI
 [varese cassandra]$ ~/local/cassandra/bin/cassandra-cli
 Welcome to the Cassandra CLI.
 
@@ -44,11 +45,14 @@ Authenticated to keyspace: employees
 Waiting for schema agreement...
 ... schemas agree across the cluster
 [default@employees] quit;
+#+END_CLI
 
 Once Cassandra is configured running the apps is fairly straightforward:
 
+#+BEGIN_SHELL
 cd src/clojure
 clojure add_employee_data.clj
 clojure get_employee_data.clj
 cd ../ruby/1.8
 ruby get_employee_data.rb
+#+END_SHELL

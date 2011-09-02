@@ -1,5 +1,12 @@
 (ns fencepost.cassandra)
 
+; Dependencies
+; apache-cassandra-thrift-0.8.2.jar
+; libthrift-0.6.jar
+; slf4j-api-1.6.1.jar
+; slf4j-log4j12-1.6.1.jar
+; log4j-1.2.16.jar
+
 (import '(org.apache.cassandra.thrift Cassandra$Client SliceRange SlicePredicate ColumnParent KeyRange ConsistencyLevel ColumnPath Column)
 	'(org.apache.thrift.transport TFramedTransport TSocket)
         '(org.apache.thrift.protocol TBinaryProtocol)

@@ -2,7 +2,7 @@
 * Using Clojure to interact with Cassandra
 This repository contains code for interacting with Cassandra using Clojure.  A set of library functions for Cassandra and Avro are included as well as a basic sample 
 application that demonstrates the use of these functions.  Additional sample code in Ruby is included to demonstrate accessing this data from other languages.  The use
-of this code is described in [[http://heuristic-fencepost.blogspot.com/][this blog post]].  The included Scala code is referenced in an [[http://heuristic-fencepost.blogspot.com/2011/05/cassandra-and-clojure-beginning-of.html][older post]] on a similar topic.
+of this code is described in [[http://heuristic-fencepost.blogspot.com/2011/09/cassandra-and-clojure-things-to-bytes.html][this blog post]].  The included Scala code is referenced in an [[http://heuristic-fencepost.blogspot.com/2011/05/cassandra-and-clojure-beginning-of.html][older post]] on a similar topic.
 
 * Source Layout
 ** src/clojure [general Clojure source]

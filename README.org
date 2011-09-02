@@ -1,0 +1,54 @@
+
+* Using Clojure to interact with Cassandra
+This repository contains code for interacting with Cassandra using Clojure.  A set of library functions for Cassandra and Avro are included as well as a basic sample 
+application that demonstrates the use of these functions.  Additional sample code in Ruby is included to demonstrate accessing this data from other languages.  The use
+of this code is described in [[http://heuristic-fencepost.blogspot.com/][this blog post]].  The included Scala code is referenced in an [[http://heuristic-fencepost.blogspot.com/2011/05/cassandra-and-clojure-beginning-of.html][older post]] on a similar topic.
+
+* Source Layout
+** src/clojure [general Clojure source]
+*** fencepost [Clojure libraries for accessing Cassandra, Avro]
+*** test [a few basic test classes]
+** src/ruby [general Ruby source]
+*** 1.8 [sample app in Ruby, app for reading Avro data files]
+*** 1.9 [test applications to verify access to Cassandra with 1.9; deprecated]
+** src/scala [general Scala source]
+
+* Dependencies
+This code has been validated with Cassandra 0.8.2, Clojure 1.2 and Ruby 1.8.7
+
+* Running the Samples
+Cassandra can be configured via the cassandra CLI:
+
+[varese cassandra]$ ~/local/cassandra/bin/cassandra-cli
+Welcome to the Cassandra CLI.
+
+Type 'help;' or '?' for help.
+Type 'quit;' or 'exit;' to quit.
+
+[default@unknown] drop keyspace employees;      
+Not connected to a cassandra instance.
+[default@unknown] connect 127.0.0.1/9160;       
+Connected to: "Test Cluster" on 127.0.0.1/9160
+[default@unknown] drop keyspace employees;
+fbb76f80-d5b3-11e0-0000-242d50cf1ff6
+Waiting for schema agreement...
+... schemas agree across the cluster
+[default@unknown] create keyspace employees;    
+ffd27600-d5b3-11e0-0000-242d50cf1ff6
+Waiting for schema agreement...
+... schemas agree across the cluster
+[default@unknown] use employees;                
+Authenticated to keyspace: employees
+[default@employees] create column family employee;
+09271260-d5b4-11e0-0000-242d50cf1ff6
+Waiting for schema agreement...
+... schemas agree across the cluster
+[default@employees] quit;
+
+Once Cassandra is configured running the apps is fairly straightforward:
+
+cd src/clojure
+clojure add_employee_data.clj
+clojure get_employee_data.clj
+cd ../ruby/1.8
+ruby get_employee_data.rb

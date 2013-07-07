@@ -1,3 +1,7 @@
+* NOTE
+This code was an attempt to design a functional interface into Cassandra from Clojure.  It was never a complete implementation of all of the functions supported by
+Cassandra and hasn't been as well maintained as it should be.  If you're looking for a complete and/or up-to-date implementation of similar functionality you might
+try [[http://clojurecassandra.info][Cassaforte]] from ClojureWerkz.
 
 * Using Clojure to interact with Cassandra
 This repository contains code for interacting with Cassandra using Clojure.  A set of library functions for Cassandra and Avro are included as well as a basic sample 
